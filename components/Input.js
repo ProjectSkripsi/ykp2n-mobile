@@ -5,30 +5,31 @@ import PropTypes from 'prop-types';
 import { Input } from "galio-framework";
 
 import Icon from './Icon';
-import { argonTheme } from "../constants";
+import { nowTheme } from "../constants";
 
 class ArInput extends React.Component {
   render() {
-    const { shadowless, success, error } = this.props;
+    const { shadowless, success, error, primary } = this.props;
 
     const inputStyles = [
       styles.input,
-      !shadowless && styles.shadow,
+      !shadowless,
       success && styles.success,
       error && styles.error,
+      primary && styles.primary,
       {...this.props.style}
     ];
 
     return (
       <Input
         placeholder="write something here"
-        placeholderTextColor={argonTheme.COLORS.MUTED}
+        placeholderTextColor={nowTheme.COLORS.MUTED}
         style={inputStyles}
-        color={argonTheme.COLORS.HEADER}
+        color={nowTheme.COLORS.HEADER}
         iconContent={
           <Icon
             size={14}
-            color={argonTheme.COLORS.ICON}
+            color={nowTheme.COLORS.ICON}
             name="link"
             family="AntDesign"
           />
@@ -42,33 +43,38 @@ class ArInput extends React.Component {
 ArInput.defaultProps = {
   shadowless: false,
   success: false,
-  error: false
+  error: false,
+  primary: false
 };
 
 ArInput.propTypes = {
   shadowless: PropTypes.bool,
   success: PropTypes.bool,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  primary: PropTypes.bool
 }
 
 const styles = StyleSheet.create({
   input: {
-    borderRadius: 4,
-    borderColor: argonTheme.COLORS.BORDER,
+    borderRadius: 30,
+    borderColor: nowTheme.COLORS.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF'
   },
   success: {
-    borderColor: argonTheme.COLORS.INPUT_SUCCESS,
+    borderColor: nowTheme.COLORS.INPUT_SUCCESS
   },
   error: {
-    borderColor: argonTheme.COLORS.INPUT_ERROR,
+    borderColor: nowTheme.COLORS.INPUT_ERROR
+  },
+  primary: {
+    borderColor: nowTheme.COLORS.PRIMARY
   },
   shadow: {
-    shadowColor: argonTheme.COLORS.BLACK,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    shadowOpacity: 0.05,
+    shadowColor: nowTheme.COLORS.BLACK,
+    shadowOffset: { width: 0, height: 0.5 },
+    shadowRadius: 1,
+    shadowOpacity: 0.13,
     elevation: 2,
   }
 });

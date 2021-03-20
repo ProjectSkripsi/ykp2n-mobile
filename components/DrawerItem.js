@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 
 import Icon from "./Icon";
-import argonTheme from "../constants/Theme";
+import nowTheme from "../constants/Theme";
 
 class DrawerItem extends React.Component {
   renderIcon = () => {
@@ -13,57 +13,92 @@ class DrawerItem extends React.Component {
       case "Home":
         return (
           <Icon
-            name="shop"
-            family="ArgonExtra"
-            size={14}
-            color={focused ? "white" : argonTheme.COLORS.PRIMARY}
+            name="app2x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+            style={{ opacity: 0.5 }}
           />
         );
-      case "Elements":
+      case "Components":
         return (
           <Icon
-            name="map-big"
-            family="ArgonExtra"
-            size={14}
-            color={focused ? "white" : argonTheme.COLORS.ERROR}
+            name="atom2x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+            style={{ opacity: 0.5 }}
           />
         );
       case "Articles":
         return (
           <Icon
-            name="spaceship"
-            family="ArgonExtra"
-            size={14}
-            color={focused ? "white" : argonTheme.COLORS.PRIMARY}
+            name="paper"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+            style={{ opacity: 0.5 }}
           />
         );
       case "Profile":
         return (
           <Icon
-            name="chart-pie-35"
-            family="ArgonExtra"
-            size={14}
-            color={focused ? "white" : argonTheme.COLORS.WARNING}
+            name="profile-circle"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+            style={{ opacity: 0.5 }}
           />
         );
       case "Account":
         return (
           <Icon
-            name="calendar-date"
-            family="ArgonExtra"
-            size={14}
-            color={focused ? "white" : argonTheme.COLORS.INFO}
+            name="badge2x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+            style={{ opacity: 0.5 }}
           />
         );
-      case "Getting Started":
-        return (<Icon
-          name="spaceship"
-          family="ArgonExtra"
-          size={14}
-          color={focused ? "white" : "rgba(0,0,0,0.5)"}
-        />);
-      case "Log out":
-        return <Icon />;
+      case "Settings":
+        return (
+          <Icon
+            name="settings-gear-642x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+            style={{ opacity: 0.5 }}
+          />
+        );
+      case "Examples":
+        return (
+          <Icon
+            name="album"
+            family="NowExtra"
+            size={14}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+          />
+        );
+      case "GETTING STARTED":
+        return (
+          <Icon
+            name="spaceship2x"
+            family="NowExtra"
+            size={18}
+            style={{ borderColor: "rgba(0,0,0,0.5)", opacity: 0.5 }}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+          />
+        );
+      case "LOGOUT":
+        return (
+          <Icon
+            name="share"
+            family="NowExtra"
+            size={18}
+            style={{ borderColor: "rgba(0,0,0,0.5)", opacity: 0.5 }}
+            color={focused ? nowTheme.COLORS.PRIMARY : "white"}
+          />
+        );
       default:
         return null;
     }
@@ -81,11 +116,11 @@ class DrawerItem extends React.Component {
       <TouchableOpacity
         style={{ height: 60 }}
         onPress={() =>
-          title == "Getting Started"
+          title == "GETTING STARTED"
             ? Linking.openURL(
-                "https://demos.creative-tim.com/argon-pro-react-native/docs/"
+                "https://demos.creative-tim.com/now-ui-pro-react-native/docs/"
               ).catch(err => console.error("An error occurred", err))
-            : navigation.navigate(title)
+            : navigation.navigate(title == 'LOGOUT' ? 'Onboarding' : title)
         }
       >
         <Block flex row style={containerStyles}>
@@ -94,9 +129,14 @@ class DrawerItem extends React.Component {
           </Block>
           <Block row center flex={0.9}>
             <Text
-              size={15}
+              style={{
+                fontFamily: "montserrat-regular",
+                textTransform: "uppercase",
+                fontWeight: "300"
+              }}
+              size={12}
               bold={focused ? true : false}
-              color={focused ? "white" : "rgba(0,0,0,0.5)"}
+              color={focused ? nowTheme.COLORS.PRIMARY : "white"}
             >
               {title}
             </Text>
@@ -109,12 +149,14 @@ class DrawerItem extends React.Component {
 
 const styles = StyleSheet.create({
   defaultStyle: {
-    paddingVertical: 16,
-    paddingHorizontal: 16
+    paddingVertical: 15,
+    paddingHorizontal: 14,
+    color: "white"
   },
   activeStyle: {
-    backgroundColor: argonTheme.COLORS.ACTIVE,
-    borderRadius: 4
+    backgroundColor: nowTheme.COLORS.WHITE,
+    borderRadius: 30,
+    color: "white"
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,

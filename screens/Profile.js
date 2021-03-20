@@ -1,341 +1,264 @@
-import React from "react";
-import {
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  Image,
-  ImageBackground,
-  Platform
-} from "react-native";
-import { Block, Text, theme } from "galio-framework";
+import React from 'react';
+import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform } from 'react-native';
+import { Block, Text, theme, Button as GaButton } from 'galio-framework';
 
-import { Button } from "../components";
-import { Images, argonTheme } from "../constants";
-import { HeaderHeight } from "../constants/utils";
+import { Button } from '../components';
+import { Images, nowTheme } from '../constants';
+import { HeaderHeight } from '../constants/utils';
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get('screen');
 
 const thumbMeasure = (width - 48 - 32) / 3;
 
-class Profile extends React.Component {
-  render() {
-    return (
-      <Block flex style={styles.profile}>
-        <Block flex>
-          <ImageBackground
-            source={Images.ProfileBackground}
-            style={styles.profileContainer}
-            imageStyle={styles.profileBackground}
-          >
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              style={{ width, marginTop: '25%' }}
-            >
-              <Block flex style={styles.profileCard}>
-                <Block middle style={styles.avatarContainer}>
-                  <Image
-                    source={{ uri: Images.ProfilePicture }}
-                    style={styles.avatar}
-                  />
+const Profile = () => {
+  return (
+    <Block style={{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    }} >
+      <Block flex={0.6} >
+        <ImageBackground
+          source={Images.ProfileBackground}
+          style={styles.profileContainer}
+          imageStyle={styles.profileBackground}
+        >
+          <Block flex style={styles.profileCard}>
+            <Block style={{ position: 'absolute', width: width, zIndex: 5, paddingHorizontal: 20 }}>
+              <Block middle style={{ top: height * 0.15 }}>
+                <Image source={Images.ProfilePicture} style={styles.avatar} />
+              </Block>
+              <Block style={{ top: height * 0.2 }}>
+                <Block middle >
+                  <Text
+                    style={{
+                      fontFamily: 'montserrat-bold',
+                      marginBottom: theme.SIZES.BASE / 2,
+                      fontWeight: '900',
+                      fontSize: 26
+                    }}
+                    color='#ffffff'
+                    >
+                    Ryan Scheinder
+                  </Text>
+
+                  <Text
+                    size={16}
+                    color="white"
+                    style={{
+                      marginTop: 5,
+                      fontFamily: 'montserrat-bold',
+                      lineHeight: 20,
+                      fontWeight: 'bold',
+                      fontSize: 18,
+                      opacity: .8
+                    }}
+                  >
+                    Photographer
+                  </Text>
                 </Block>
                 <Block style={styles.info}>
-                  <Block
-                    middle
-                    row
-                    space="evenly"
-                    style={{ marginTop: 20, paddingBottom: 24 }}
-                  >
-                    <Button
-                      small
-                      style={{ backgroundColor: argonTheme.COLORS.INFO }}
-                    >
-                      CONNECT
-                    </Button>
-                    <Button
-                      small
-                      style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
-                    >
-                      MESSAGE
-                    </Button>
-                  </Block>
-                  <Block row space="between">
+                  <Block row space="around">
+
                     <Block middle>
                       <Text
-                        bold
                         size={18}
-                        color="#525F7F"
-                        style={{ marginBottom: 4 }}
+                        color="white"
+                        style={{ marginBottom: 4, fontFamily: 'montserrat-bold' }}
                       >
                         2K
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Orders</Text>
+                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
+                        Friends
+                      </Text>
                     </Block>
+
                     <Block middle>
                       <Text
-                        bold
-                        color="#525F7F"
+                        color="white"
                         size={18}
-                        style={{ marginBottom: 4 }}
+                        style={{ marginBottom: 4, fontFamily: 'montserrat-bold' }}
                       >
-                        10
+                        26
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Photos</Text>
+                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
+                        Comments
+                        </Text>
                     </Block>
+
                     <Block middle>
                       <Text
-                        bold
-                        color="#525F7F"
+                        color="white"
                         size={18}
-                        style={{ marginBottom: 4 }}
+                        style={{ marginBottom: 4, fontFamily: 'montserrat-bold' }}
                       >
-                        89
+                        48
                       </Text>
-                      <Text size={12} color={argonTheme.COLORS.TEXT}>Comments</Text>
+                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
+                        Bookmarks
+                      </Text>
                     </Block>
-                  </Block>
-                </Block>
-                <Block flex>
-                  <Block middle style={styles.nameInfo}>
-                    <Text bold size={28} color="#32325D">
-                      Jessica Jones, 27
-                    </Text>
-                    <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      San Francisco, USA
-                    </Text>
-                  </Block>
-                  <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
-                    <Block style={styles.divider} />
-                  </Block>
-                  <Block middle>
-                    <Text
-                      size={16}
-                      color="#525F7F"
-                      style={{ textAlign: "center" }}
-                    >
-                      An artist of considerable range, Jessica name taken by
-                      Melbourne …
-                    </Text>
-                    <Button
-                      color="transparent"
-                      textStyle={{
-                        color: "#233DD2",
-                        fontWeight: "500",
-                        fontSize: 16
-                      }}
-                    >
-                      Show more
-                    </Button>
-                  </Block>
-                  <Block
-                    row
-                    space="between"
-                  >
-                    <Text bold size={16} color="#525F7F" style={{marginTop: 12}}>
-                      Album
-                    </Text>
-                    <Button
-                      small
-                      color="transparent"
-                      textStyle={{ color: "#5E72E4", fontSize: 12, marginLeft: 24 }}
-                    >
-                      View all
-                    </Button>
-                  </Block>
-                  <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-                    <Block row space="between" style={{ flexWrap: "wrap" }}>
-                      {Images.Viewed.map((img, imgIndex) => (
-                        <Image
-                          source={{ uri: img }}
-                          key={`viewed-${img}`}
-                          resizeMode="cover"
-                          style={styles.thumb}
-                        />
-                      ))}
-                    </Block>
+
                   </Block>
                 </Block>
               </Block>
-            </ScrollView>
-          </ImageBackground>
-        </Block>
-        {/* <ScrollView showsVerticalScrollIndicator={false} 
-                    contentContainerStyle={{ flex: 1, width, height, zIndex: 9000, backgroundColor: 'red' }}>
-        <Block flex style={styles.profileCard}>
-          <Block middle style={styles.avatarContainer}>
-            <Image
-              source={{ uri: Images.ProfilePicture }}
-              style={styles.avatar}
-            />
-          </Block>
-          <Block style={styles.info}>
+
+            </Block>
+
+
             <Block
               middle
               row
-              space="evenly"
-              style={{ marginTop: 20, paddingBottom: 24 }}
+              style={{ position: 'absolute', width: width, top: height * 0.6 - 26, zIndex: 99 }}
             >
-              <Button small style={{ backgroundColor: argonTheme.COLORS.INFO }}>
-                CONNECT
+              <Button style={{ width: 114, height: 44, marginHorizontal: 5, elevation: 0 }} textStyle={{ fontSize: 16 }} round>
+                Follow
               </Button>
+              <GaButton
+                round
+                onlyIcon
+                shadowless
+                icon="twitter"
+                iconFamily="Font-Awesome"
+                iconColor={nowTheme.COLORS.WHITE}
+                iconSize={nowTheme.SIZES.BASE * 1.375}
+                color={'#888888'}
+                style={[styles.social, styles.shadow]}
+              />
+              <GaButton
+                round
+                onlyIcon
+                shadowless
+                icon="pinterest"
+                iconFamily="Font-Awesome"
+                iconColor={nowTheme.COLORS.WHITE}
+                iconSize={nowTheme.SIZES.BASE * 1.375}
+                color={'#888888'}
+                style={[styles.social, styles.shadow]}
+              />
+            </Block>
+          </Block>
+        </ImageBackground>
+
+
+      </Block>
+      <Block />
+      <Block flex={0.4} style={{ padding: theme.SIZES.BASE, marginTop: 90}}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Block flex style={{ marginTop: 20 }}>
+            <Block middle>
+              <Text
+                style={{
+                  color: '#2c2c2c',
+                  fontWeight: 'bold',
+                  fontSize: 19,
+                  fontFamily: 'montserrat-bold',
+                  marginTop: 15,
+                  marginBottom: 30,
+                  zIndex: 2
+                }}
+              >
+                About me
+                  </Text>
+              <Text
+                size={16}
+                muted
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'montserrat-regular',
+                  zIndex: 2,
+                  lineHeight: 25,
+                  color: '#9A9A9A',
+                  paddingHorizontal: 15
+                }}
+              >
+                An artist of considerable range, named Ryan — the name has taken by Melbourne has raised,
+                Brooklyn-based Nick Murphy — writes, performs and records all of his own music.
+                  </Text>
+            </Block>
+            <Block row style={{ paddingVertical: 14, paddingHorizontal: 15 }} space="between">
+              <Text bold size={16} color="#2c2c2c" style={{ marginTop: 3 }}>
+                Album
+                  </Text>
               <Button
                 small
-                style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
+                color="transparent"
+                textStyle={{ color: nowTheme.COLORS.PRIMARY, fontSize: 14 }}
               >
-                MESSAGE
-              </Button>
+                View all
+                  </Button>
             </Block>
 
-            <Block row space="between">
-              <Block middle>
-                <Text
-                  bold
-                  size={12}
-                  color="#525F7F"
-                  style={{ marginBottom: 4 }}
-                >
-                  2K
-                </Text>
-                <Text size={12}>Orders</Text>
-              </Block>
-              <Block middle>
-                <Text bold size={12} style={{ marginBottom: 4 }}>
-                  10
-                </Text>
-                <Text size={12}>Photos</Text>
-              </Block>
-              <Block middle>
-                <Text bold size={12} style={{ marginBottom: 4 }}>
-                  89
-                </Text>
-                <Text size={12}>Comments</Text>
+
+            <Block style={{ paddingBottom: -HeaderHeight * 2, paddingHorizontal: 15}}>
+              <Block row space="between" style={{ flexWrap: 'wrap' }}>
+                {Images.Viewed.map((img, imgIndex) => (
+                  <Image
+                    source={img}
+                    key={`viewed-${img}`}
+                    resizeMode="cover"
+                    style={styles.thumb}
+                  />
+                ))}
               </Block>
             </Block>
           </Block>
-          <Block flex>
-              <Block middle style={styles.nameInfo}>
-                <Text bold size={28} color="#32325D">
-                  Jessica Jones, 27
-                </Text>
-                <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                  San Francisco, USA
-                </Text>
-              </Block>
-              <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
-                <Block style={styles.divider} />
-              </Block>
-              <Block middle>
-                <Text size={16} color="#525F7F" style={{ textAlign: "center" }}>
-                  An artist of considerable range, Jessica name taken by
-                  Melbourne …
-                </Text>
-                <Button
-                  color="transparent"
-                  textStyle={{
-                    color: "#233DD2",
-                    fontWeight: "500",
-                    fontSize: 16
-                  }}
-                >
-                  Show more
-                </Button>
-              </Block>
-              <Block
-                row
-                style={{ paddingVertical: 14, alignItems: "baseline" }}
-              >
-                <Text bold size={16} color="#525F7F">
-                  Album
-                </Text>
-              </Block>
-              <Block
-                row
-                style={{ paddingBottom: 20, justifyContent: "flex-end" }}
-              >
-                <Button
-                  small
-                  color="transparent"
-                  textStyle={{ color: "#5E72E4", fontSize: 12 }}
-                >
-                  View all
-                </Button>
-              </Block>
-              <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-                <Block row space="between" style={{ flexWrap: "wrap" }}>
-                  {Images.Viewed.map((img, imgIndex) => (
-                    <Image
-                      source={{ uri: img }}
-                      key={`viewed-${img}`}
-                      resizeMode="cover"
-                      style={styles.thumb}
-                    />
-                  ))}
-                </Block>
-              </Block>
-          </Block>
-        </Block>
-                  </ScrollView>*/}
+        </ScrollView>
       </Block>
-    );
-  }
+    </Block>
+
+  )
 }
 
+
+
+
+
 const styles = StyleSheet.create({
-  profile: {
-    marginTop: Platform.OS === "android" ? -HeaderHeight : 0,
-    // marginBottom: -HeaderHeight * 2,
-    flex: 1
-  },
+
   profileContainer: {
-    width: width,
-    height: height,
+    width,
+    height,
     padding: 0,
     zIndex: 1
   },
   profileBackground: {
-    width: width,
-    height: height / 2
+    width,
+    height: height * 0.6
   },
-  profileCard: {
-    // position: "relative",
-    padding: theme.SIZES.BASE,
-    marginHorizontal: theme.SIZES.BASE,
-    marginTop: 65,
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
-    backgroundColor: theme.COLORS.WHITE,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 8,
-    shadowOpacity: 0.2,
-    zIndex: 2
-  },
+
   info: {
-    paddingHorizontal: 40
+    marginTop: 30,
+    paddingHorizontal: 10,
+    height: height * 0.8
   },
   avatarContainer: {
-    position: "relative",
+    position: 'relative',
     marginTop: -80
   },
   avatar: {
-    width: 124,
-    height: 124,
-    borderRadius: 62,
+    width: thumbMeasure,
+    height: thumbMeasure,
+    borderRadius: 50,
     borderWidth: 0
   },
   nameInfo: {
     marginTop: 35
   },
-  divider: {
-    width: "90%",
-    borderWidth: 1,
-    borderColor: "#E9ECEF"
-  },
   thumb: {
     borderRadius: 4,
     marginVertical: 4,
-    alignSelf: "center",
+    alignSelf: 'center',
     width: thumbMeasure,
     height: thumbMeasure
+  },
+  social: {
+    width: nowTheme.SIZES.BASE * 3,
+    height: nowTheme.SIZES.BASE * 3,
+    borderRadius: nowTheme.SIZES.BASE * 1.5,
+    justifyContent: 'center',
+    zIndex: 99,
+    marginHorizontal: 5
   }
 });
 

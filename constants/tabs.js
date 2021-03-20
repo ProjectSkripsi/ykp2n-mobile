@@ -1,8 +1,14 @@
 export default tabs = {
-  categories: [
+  beauty: [
     { id: 'popular', title: 'Popular' },
     { id: 'beauty', title: 'Beauty' },
     { id: 'fashion', title: 'Fashion' },
-    { id: 'car_motorcycle', title: 'Car & Motorcycle' },
+    { id: 'clothes', title: 'Clothes'}
+  ],
+  fashion: [
+    { id: 'shoes', title: 'Shoes', },
+    { id: 'beauty', title: 'Beauty', },
+    { id: 'fashion', title: 'Fashion', },
+    { id: 'places', title: 'Places', }
   ],
 }

@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "Argon FREE React Native",
-    "slug": "argon-free-react-native",
+    "name": "YKP2N Mobile",
+    "slug": "YKP2N-Mobile",
     "privacy": "public",
+    "sdkVersion": "39.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.7.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,6 +25,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "Argon React Native, based on Argon Design System. Coded by Creative Tim"
+    "description": "Yayasan Kelompok Peduli Penyalagunaan Napza dan Obat-obatan Terlarang"
   }
 }

@@ -1,27 +1,27 @@
-import React, {useState} from "react";
-import { Image } from "react-native";
-import AppLoading from "expo-app-loading";
-import { useFonts } from '@use-expo/font';
-import { Asset } from "expo-asset";
-import { Block, GalioProvider } from "galio-framework";
-import { NavigationContainer } from "@react-navigation/native";
+import React from 'react';
+import { Image } from 'react-native';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import { Asset } from 'expo-asset';
+import { Block, GalioProvider } from 'galio-framework';
+import { NavigationContainer } from '@react-navigation/native';
 
-// Before rendering any navigation stack
-import { enableScreens } from "react-native-screens";
-enableScreens();
-
-import Screens from "./navigation/Screens";
-import { Images, articles, argonTheme } from "./constants";
+import Screens from './navigation/Screens';
+import { Images, articles, nowTheme } from './constants';
 
 // cache app images
 const assetImages = [
   Images.Onboarding,
-  Images.LogoOnboarding,
   Images.Logo,
   Images.Pro,
-  Images.ArgonLogo,
+  Images.NowLogo,
   Images.iOSLogo,
-  Images.androidLogo
+  Images.androidLogo,
+  Images.ProfilePicture,
+  Images.CreativeTimLogo,
+  Images.InvisionLogo,
+  Images.RegisterBackground,
+  Images.ProfileBackground
 ];
 
 // cache product images
@@ -29,7 +29,7 @@ articles.map(article => assetImages.push(article.image));
 
 function cacheImages(images) {
   return images.map(image => {
-    if (typeof image === "string") {
+    if (typeof image === 'string') {
       return Image.prefetch(image);
     } else {
       return Asset.fromModule(image).downloadAsync();
@@ -37,87 +37,62 @@ function cacheImages(images) {
   });
 }
 
-export default props => {
-  const [isLoadingComplete, setLoading] = useState(false);
-  let [fontsLoaded] = useFonts({
-    'ArgonExtra': require('./assets/font/argon.ttf'),
-  });
+export default class App extends React.Component {
+  state = {
+    isLoadingComplete: false,
+    fontLoaded: false
+  };
 
-  function _loadResourcesAsync() {
-    return Promise.all([...cacheImages(assetImages)]);
+  // async componentDidMount() {
+  //   Font.loadAsync({
+  //     'montserrat-regular': require('./assets/font/Montserrat-Regular.ttf'),
+  //     'montserrat-bold': require('./assets/font/Montserrat-Bold.ttf')
+  //   });
+
+  //   this.setState({ fontLoaded: true });
+  // }
+
+  render() {
+    if (!this.state.isLoadingComplete) {
+      return (
+        <AppLoading
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
+    } else {
+      return (
+        <NavigationContainer>
+          <GalioProvider theme={nowTheme}>
+            <Block flex>
+              <Screens />
+            </Block>
+          </GalioProvider>
+        </NavigationContainer>
+      );
+    }
   }
 
-  function _handleLoadingError(error) {
+  _loadResourcesAsync = async () => {
+    await Font.loadAsync({
+      'montserrat-regular': require('./assets/font/Montserrat-Regular.ttf'),
+      'montserrat-bold': require('./assets/font/Montserrat-Bold.ttf')
+    });
+
+    this.setState({ fontLoaded: true });
+    return Promise.all([...cacheImages(assetImages)]);
+  };
+
+  _handleLoadingError = error => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
   };
 
- function _handleFinishLoading() {
-    setLoading(true);
+  _handleFinishLoading = () => {
+    if (this.state.fontLoaded) {
+      this.setState({ isLoadingComplete: true });
+    }
   };
-
-  if(!fontsLoaded && !isLoadingComplete) {
-    return (
-      <AppLoading
-        startAsync={_loadResourcesAsync}
-        onError={_handleLoadingError}
-        onFinish={_handleFinishLoading}
-      />
-    );
-  } else if(fontsLoaded) {
-    return (
-      <NavigationContainer>
-        <GalioProvider theme={argonTheme}>
-          <Block flex>
-            <Screens />
-          </Block>
-        </GalioProvider>
-      </NavigationContainer>
-    );
-  } else {
-    return null
-  }
 }
-
-// export default class App extends React.Component {
-//   state = {
-//     isLoadingComplete: false
-//   };
-
-//   render() {
-//     if (!this.state.isLoadingComplete) {
-//       return (
-//         <AppLoading
-//           startAsync={this._loadResourcesAsync}
-//           onError={this._handleLoadingError}
-//           onFinish={this._handleFinishLoading}
-//         />
-//       );
-//     } else {
-//       return (
-//         <NavigationContainer>
-//           <GalioProvider theme={argonTheme}>
-//             <Block flex>
-//               <Screens />
-//             </Block>
-//           </GalioProvider>
-//         </NavigationContainer>
-//       );
-//     }
-//   }
-
-//   _loadResourcesAsync = async () => {
-//     return Promise.all([...cacheImages(assetImages)]);
-//   };
-
-//   _handleLoadingError = error => {
-//     // In this case, you might want to report the error to your error
-//     // reporting service, for example Sentry
-//     console.warn(error);
-//   };
-
-//   _handleFinishLoading = () => {
-//     this.setState({ isLoadingComplete: true });
-//   };
-// }

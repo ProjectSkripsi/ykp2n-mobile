@@ -3,12 +3,12 @@ import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
-import argonTheme from '../constants/Theme';
+import nowTheme from '../constants/Theme';
 
 const defaultMenu = [
-  { id: 'popular', title: 'Popular', },
+  { id: 'music', title: 'Music', },
   { id: 'beauty', title: 'Beauty', },
-  { id: 'cars', title: 'Cars', },
+  { id: 'fashion', title: 'Fashion', },
   { id: 'motocycles', title: 'Motocycles', },
 ];
 
@@ -35,7 +35,7 @@ export default class Tabs extends React.Component {
     Animated.timing(this.animatedValue, {
       toValue: 1,
       duration: 300,
-      useNativeDriver: false, // color not supported
+      // useNativeDriver: true, // color not supported
     }).start()
   }
 
@@ -65,13 +65,13 @@ export default class Tabs extends React.Component {
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [argonTheme.COLORS.BLACK, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.BLACK],
+      outputRange: [nowTheme.COLORS.TEXT, isActive ? nowTheme.COLORS.WHITE : nowTheme.COLORS.SECONDARY],
       extrapolate: 'clamp',
     });
-    
+
     const containerStyles = [
       styles.titleContainer,
-      !isActive && { backgroundColor: argonTheme.COLORS.SECONDARY },
+      !isActive && { backgroundColor: nowTheme.COLORS.TABS },
       isActive && styles.containerShadow
     ];
 
@@ -80,7 +80,8 @@ export default class Tabs extends React.Component {
         <Animated.Text
           style={[
             styles.menuTitle,
-            { color: textColor }
+            { color: textColor },
+            { fontFamily: 'montserrat-regular' },
           ]}
           onPress={() => this.selectMenu(item.id)}>
           {item.title}
@@ -137,9 +138,11 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
-    backgroundColor: argonTheme.COLORS.ACTIVE,
-    borderRadius: 4,
-    marginRight: 9
+    backgroundColor: nowTheme.COLORS.ACTIVE,
+    borderRadius: 21,
+    marginRight: 9,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
   },
   containerShadow: {
     shadowColor: 'black',
@@ -151,9 +154,8 @@ const styles = StyleSheet.create({
   menuTitle: {
     fontWeight: '600',
     fontSize: 14,
-    // lineHeight: 28,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    color: argonTheme.COLORS.MUTED
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    color: nowTheme.COLORS.MUTED
   },
 });
