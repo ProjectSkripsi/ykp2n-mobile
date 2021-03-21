@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 import { Block } from "galio-framework";
 import { Easing, Animated, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // screens
-import Home from '../screens/Home';
-import Pro from '../screens/Pro';
-import Profile from '../screens/Profile';
-import Register from '../screens/Register';
-import Components from '../screens/Components';
-import Articles from '../screens/Articles';
-import Onboarding from '../screens/Onboarding';
-import SettingsScreen from '../screens/Settings';
+import Home from "../screens/Home";
+import Pro from "../screens/Pro";
+import Profile from "../screens/Profile";
+import Register from "../screens/Register";
+import Components from "../screens/Components";
+import Articles from "../screens/Articles";
+import Onboarding from "../screens/Onboarding";
+import SettingsScreen from "../screens/Settings";
 // drawer
 import CustomDrawerContent from "./Menu";
 // header for screens
-import { Header, Icon} from '../components';
+import { Header, Icon } from "../components";
 import { nowTheme, tabs } from "../constants";
 
 const { width } = Dimensions.get("screen");
@@ -26,22 +26,42 @@ const Drawer = createDrawerNavigator();
 
 function ComponentsStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Components" mode="card" headerMode="screen">
-      <Stack.Screen name="Components" component={Components} options={{
-        header:({ navigation, scene }) => (<Header title="Components" navigation={navigation} scene={scene} />),
-        backgroundColor: "#FFFFFF"
-      }}/>
+    <Stack.Navigator
+      initialRouteName="Components"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Components"
+        component={Components}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Components" navigation={navigation} scene={scene} />
+          ),
+          backgroundColor: "#FFFFFF",
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
 function ArticlesStack(props) {
   return (
-    <Stack.Navigator initialRouteName="Articles" mode="card" headerMode="screen">
-      <Stack.Screen name="Articles" component={Articles} options={{
-        header: ({ navigation, scene }) => (<Header title="Articles" navigation={navigation} scene={scene} />),
-        backgroundColor: '#FFFFFF'
-      }} />
+    <Stack.Navigator
+      initialRouteName="Articles"
+      mode="card"
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Articles"
+        component={Articles}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Articles" navigation={navigation} scene={scene} />
+          ),
+          backgroundColor: "#FFFFFF",
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -54,14 +74,14 @@ function AccountStack(props) {
         component={Register}
         options={{
           header: ({ navigation, scene }) => (
-            <Header 
+            <Header
               transparent
               title="Create Account"
               navigation={navigation}
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -85,7 +105,7 @@ function ProfileStack(props) {
             />
           ),
           cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
       <Stack.Screen
@@ -102,7 +122,7 @@ function ProfileStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -118,14 +138,12 @@ function HomeStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title="Home"
-              search
-              options
+              title="Input Biodata Pasien"
               navigation={navigation}
               scene={scene}
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" }
+          cardStyle: { backgroundColor: "#FFFFFF" },
         }}
       />
       <Stack.Screen
@@ -142,7 +160,7 @@ function HomeStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -153,10 +171,10 @@ function AppStack(props) {
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}
-      drawerContent={props => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       drawerStyle={{
         backgroundColor: nowTheme.COLORS.PRIMARY,
-        width: width * 0.8
+        width: width * 0.8,
       }}
       drawerContentOptions={{
         activeTintcolor: nowTheme.COLORS.WHITE,
@@ -170,13 +188,13 @@ function AppStack(props) {
           justifyContent: "center",
           alignContent: "center",
           alignItems: "center",
-          overflow: "hidden"
+          overflow: "hidden",
         },
         labelStyle: {
           fontSize: 18,
           marginLeft: 12,
-          fontWeight: "normal"
-        }
+          fontWeight: "normal",
+        },
       }}
       initialRouteName="Home"
     >
@@ -196,11 +214,10 @@ export default function OnboardingStack(props) {
         name="Onboarding"
         component={Onboarding}
         option={{
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
       <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
   );
 }
-

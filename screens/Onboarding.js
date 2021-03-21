@@ -29,6 +29,7 @@ const DismissKeyboard = ({ children }) => (
 
 class Register extends React.Component {
   render() {
+    const { navigation } = this.props;
     console.log(this.props);
     return (
       <DismissKeyboard>
@@ -110,6 +111,7 @@ class Register extends React.Component {
                             color="primary"
                             round
                             style={styles.createButton}
+                            onPress={() => navigation.navigate("App")}
                           >
                             <Text
                               style={{ fontFamily: "montserrat-bold" }}
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
   registerContainer: {
     marginTop: 55,
     width: width * 0.9,
-    height: height < 812 ? height * 0.8 : height * 0.8,
+    height: 500,
     backgroundColor: nowTheme.COLORS.WHITE,
     borderRadius: 4,
     shadowColor: nowTheme.COLORS.BLACK,
@@ -159,9 +161,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     elevation: 1,
     overflow: "hidden",
+    borderRadius: 10,
   },
   socialConnect: {
     backgroundColor: nowTheme.COLORS.WHITE,
+    marginTop: 50,
     // borderBottomWidth: StyleSheet.hairlineWidth,
     // borderColor: "rgba(136, 152, 170, 0.3)"
   },

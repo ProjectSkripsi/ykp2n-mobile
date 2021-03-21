@@ -5,7 +5,7 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  Linking
+  Linking,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { useSafeArea } from "react-native-safe-area-context";
@@ -25,20 +25,14 @@ function CustomDrawerContent({
   ...rest
 }) {
   const insets = useSafeArea();
-  const screens = [
-    "Home",
-    "Components",
-    "Articles",
-    "Profile",
-    "Account",
-  ];
+  const screens = ["Home", "Components", "Articles", "Profile", "Account"];
   return (
     <Block
       style={styles.container}
       forceInset={{ top: "always", horizontal: "never" }}
     >
       <Block style={styles.header}>
-        <Image style={styles.logo} source={Images.Logo} />
+        <Image style={styles.logo} source={require("../assets/ypk2n1.png")} />
         <Block right style={styles.headerIcon}>
           <Icon
             name="align-left-22x"
@@ -60,19 +54,34 @@ function CustomDrawerContent({
               />
             );
           })}
-          <Block flex style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}>
           <Block
-            style={{ borderColor: 'white', width: '93%', borderWidth: StyleSheet.hairlineWidth, marginHorizontal: 10}}
-          />
-          <Text
-            color={nowTheme.COLORS.WHITE}
-            style={{ marginTop: 30, marginLeft: 20, marginBottom: 10, fontFamily: 'montserrat-regular', fontWeight: '300', fontSize: 12}}
+            flex
+            style={{ marginTop: 24, marginVertical: 8, paddingHorizontal: 8 }}
           >
-            DOCUMENTATION
-          </Text>
-        </Block>
-        <DrawerCustomItem title="GETTING STARTED" navigation={navigation}/>
-        <DrawerCustomItem title="LOGOUT" navigation={navigation}/>
+            <Block
+              style={{
+                borderColor: "white",
+                width: "93%",
+                borderWidth: StyleSheet.hairlineWidth,
+                marginHorizontal: 10,
+              }}
+            />
+            <Text
+              color={nowTheme.COLORS.WHITE}
+              style={{
+                marginTop: 30,
+                marginLeft: 20,
+                marginBottom: 10,
+                fontFamily: "montserrat-regular",
+                fontWeight: "300",
+                fontSize: 12,
+              }}
+            >
+              DOCUMENTATION
+            </Text>
+          </Block>
+          <DrawerCustomItem title="GETTING STARTED" navigation={navigation} />
+          <DrawerCustomItem title="LOGOUT" navigation={navigation} />
         </ScrollView>
       </Block>
     </Block>
@@ -81,21 +90,21 @@ function CustomDrawerContent({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   header: {
     paddingHorizontal: 28,
     paddingBottom: theme.SIZES.BASE,
     paddingTop: theme.SIZES.BASE * 3,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   headerIcon: {
-    marginTop: -20
+    marginTop: -20,
   },
   logo: {
-    height: 40,
-    width: 37
-  }
+    height: 60,
+    width: 60,
+  },
 });
 
 export default CustomDrawerContent;
