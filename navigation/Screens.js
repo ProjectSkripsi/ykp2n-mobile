@@ -1,28 +1,28 @@
-import React from "react";
-import { Block } from "galio-framework";
-import { Easing, Animated, Dimensions } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react'
+import { Block } from 'galio-framework'
+import { Easing, Animated, Dimensions } from 'react-native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 // screens
-import Home from "../screens/Home";
-import Pro from "../screens/Pro";
-import Profile from "../screens/Profile";
-import Register from "../screens/Register";
-import Components from "../screens/Components";
-import Articles from "../screens/Articles";
-import Onboarding from "../screens/Onboarding";
-import SettingsScreen from "../screens/Settings";
+import Home from '../screens/Home'
+import Symptoms from '../screens/InputSymptoms'
+import Profile from '../screens/Profile'
+import Register from '../screens/Register'
+import Components from '../screens/Components'
+import Articles from '../screens/Articles'
+import Onboarding from '../screens/Onboarding'
+import SettingsScreen from '../screens/Settings'
 // drawer
-import CustomDrawerContent from "./Menu";
+import CustomDrawerContent from './Menu'
 // header for screens
-import { Header, Icon } from "../components";
-import { nowTheme, tabs } from "../constants";
+import { Header, Icon } from '../components'
+import { nowTheme, tabs } from '../constants'
 
-const { width } = Dimensions.get("screen");
+const { width } = Dimensions.get('screen')
 
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator()
+const Drawer = createDrawerNavigator()
 
 function ComponentsStack(props) {
   return (
@@ -38,11 +38,11 @@ function ComponentsStack(props) {
           header: ({ navigation, scene }) => (
             <Header title="Components" navigation={navigation} scene={scene} />
           ),
-          backgroundColor: "#FFFFFF",
+          backgroundColor: '#FFFFFF',
         }}
       />
     </Stack.Navigator>
-  );
+  )
 }
 
 function ArticlesStack(props) {
@@ -59,11 +59,11 @@ function ArticlesStack(props) {
           header: ({ navigation, scene }) => (
             <Header title="Articles" navigation={navigation} scene={scene} />
           ),
-          backgroundColor: "#FFFFFF",
+          backgroundColor: '#FFFFFF',
         }}
       />
     </Stack.Navigator>
-  );
+  )
 }
 
 function AccountStack(props) {
@@ -85,7 +85,7 @@ function AccountStack(props) {
         }}
       />
     </Stack.Navigator>
-  );
+  )
 }
 
 function ProfileStack(props) {
@@ -104,29 +104,12 @@ function ProfileStack(props) {
               scene={scene}
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true,
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
           headerTransparent: true,
         }}
       />
     </Stack.Navigator>
-  );
+  )
 }
 
 function HomeStack(props) {
@@ -143,28 +126,26 @@ function HomeStack(props) {
               scene={scene}
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
+          cardStyle: { backgroundColor: '#FFFFFF' },
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="Symptoms"
+        component={Symptoms}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              title=""
-              back
-              white
-              transparent
+              title="Input Gejala Pasien"
               navigation={navigation}
               scene={scene}
+              back
             />
           ),
-          headerTransparent: true,
+          cardStyle: { backgroundColor: '#FFFFFF' },
         }}
       />
     </Stack.Navigator>
-  );
+  )
 }
 
 function AppStack(props) {
@@ -179,21 +160,21 @@ function AppStack(props) {
       drawerContentOptions={{
         activeTintcolor: nowTheme.COLORS.WHITE,
         inactiveTintColor: nowTheme.COLORS.WHITE,
-        activeBackgroundColor: "transparent",
+        activeBackgroundColor: 'transparent',
         itemStyle: {
           width: width * 0.75,
-          backgroundColor: "transparent",
+          backgroundColor: 'transparent',
           paddingVertical: 16,
           paddingHorizonal: 12,
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-          overflow: "hidden",
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
         },
         labelStyle: {
           fontSize: 18,
           marginLeft: 12,
-          fontWeight: "normal",
+          fontWeight: 'normal',
         },
       }}
       initialRouteName="Home"
@@ -204,10 +185,12 @@ function AppStack(props) {
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Account" component={AccountStack} />
     </Drawer.Navigator>
-  );
+  )
 }
 
-export default function OnboardingStack(props) {
+function RootStack(props) {
+  const isLogin = false
+
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
@@ -219,5 +202,25 @@ export default function OnboardingStack(props) {
       />
       <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
-  );
+  )
+}
+
+export default function OnboardingStack(props) {
+  const isLogin = false
+  if (isLogin) {
+    return (
+      <Stack.Navigator mode="card" headerMode="none">
+        <Stack.Screen name="App" component={AppStack} />
+        <Stack.Screen
+          name="Onboarding"
+          component={Onboarding}
+          option={{
+            headerTransparent: true,
+          }}
+        />
+      </Stack.Navigator>
+    )
+  } else {
+    return <RootStack />
+  }
 }

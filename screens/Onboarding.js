@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   StyleSheet,
   ImageBackground,
@@ -7,30 +7,79 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
-} from "react-native";
+} from 'react-native'
 import {
   Block,
   Checkbox,
   Text,
   Button as GaButton,
   theme,
-} from "galio-framework";
+} from 'galio-framework'
 
-import { Button, Icon, Input } from "../components";
-import { Images, nowTheme } from "../constants";
+import { Button, Icon, Input } from '../components'
+import { Images, nowTheme } from '../constants'
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get('screen')
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
   </TouchableWithoutFeedback>
-);
+)
 
 class Register extends React.Component {
+  state = {
+    email: '',
+    password: '',
+    errors: {
+      email: null,
+      password: null,
+    },
+    isValid: false,
+    isLoading: false,
+  }
+
+  onChange = (value, name) => {
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => {
+        this.isValidForm(name)
+      },
+    )
+  }
+
+  validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return !re.test(email)
+  }
+
+  isValidForm = (type) => {
+    const { email, password, errors } = this.state
+    let isValidForm = false
+    if (type === 'email') {
+      errors.email = this.validateEmail(email)
+    }
+    if (type === 'password') {
+      errors.password = password.length === 0
+    }
+
+    isValidForm =
+      !errors.email &&
+      !errors.password &&
+      errors.email !== null &&
+      errors.password !== null
+    this.setState({ errors, isValid: isValidForm })
+  }
+  doLogin = () => {
+    const { navigation } = this.props
+    navigation.navigate('App')
+  }
+
   render() {
-    const { navigation } = this.props;
-    console.log(this.props);
+    const { navigation } = this.props
+    const { isValid, isLoading } = this.state
     return (
       <DismissKeyboard>
         <Block flex middle>
@@ -51,7 +100,7 @@ class Register extends React.Component {
                       style={{ marginBottom: 18, marginTop: 30 }}
                     >
                       <Image
-                        source={require("../assets/ypk2n.jpeg")}
+                        source={require('../assets/ypk2n.jpeg')}
                         style={{
                           width: 100,
                         }}
@@ -62,8 +111,8 @@ class Register extends React.Component {
                   <Block flex={0.1} middle>
                     <Text
                       style={{
-                        fontFamily: "montserrat-regular",
-                        textAlign: "center",
+                        fontFamily: 'montserrat-regular',
+                        textAlign: 'center',
                       }}
                       muted
                       size={16}
@@ -79,6 +128,9 @@ class Register extends React.Component {
                             <Input
                               placeholder="Email"
                               style={styles.inputs}
+                              onChangeText={(text) =>
+                                this.onChange(text, 'email')
+                              }
                               iconContent={
                                 <Icon
                                   size={16}
@@ -94,6 +146,9 @@ class Register extends React.Component {
                             <Input
                               placeholder="Password"
                               style={styles.inputs}
+                              onChangeText={(text) =>
+                                this.onChange(text, 'password')
+                              }
                               iconContent={
                                 <Icon
                                   size={16}
@@ -105,16 +160,30 @@ class Register extends React.Component {
                               }
                             />
                           </Block>
+                          <Text
+                            style={{
+                              fontFamily: 'montserrat-regular',
+                              textAlign: 'center',
+                              color: 'red',
+                            }}
+                            muted
+                            size={14}
+                          >
+                            Password salah!
+                          </Text>
                         </Block>
                         <Block center>
                           <Button
-                            color="primary"
+                            // color="primary"
+                            color={!isValid ? 'default' : 'primary'}
                             round
+                            disabled={!isValid}
+                            loading={isLoading}
                             style={styles.createButton}
-                            onPress={() => navigation.navigate("App")}
+                            onPress={this.doLogin}
                           >
                             <Text
-                              style={{ fontFamily: "montserrat-bold" }}
+                              style={{ fontFamily: 'montserrat-bold' }}
                               size={14}
                               color={nowTheme.COLORS.WHITE}
                             >
@@ -131,7 +200,7 @@ class Register extends React.Component {
           </ImageBackground>
         </Block>
       </DismissKeyboard>
-    );
+    )
   }
 }
 
@@ -160,7 +229,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
     borderRadius: 10,
   },
   socialConnect: {
@@ -172,7 +241,7 @@ const styles = StyleSheet.create({
   socialButtons: {
     width: 120,
     height: 40,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     shadowColor: nowTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
@@ -184,7 +253,7 @@ const styles = StyleSheet.create({
   },
   socialTextButtons: {
     color: nowTheme.COLORS.PRIMARY,
-    fontWeight: "800",
+    fontWeight: '800',
     fontSize: 14,
   },
   inputIcons: {
@@ -193,7 +262,7 @@ const styles = StyleSheet.create({
   },
   inputs: {
     borderWidth: 1,
-    borderColor: "#E3E3E3",
+    borderColor: '#E3E3E3',
     borderRadius: 21.5,
   },
   passwordCheck: {
@@ -210,9 +279,9 @@ const styles = StyleSheet.create({
     width: theme.SIZES.BASE * 3.5,
     height: theme.SIZES.BASE * 3.5,
     borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginHorizontal: 10,
   },
-});
+})
 
-export default Register;
+export default Register

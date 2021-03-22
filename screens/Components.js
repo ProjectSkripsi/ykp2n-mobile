@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   ScrollView,
   StyleSheet,
@@ -6,38 +6,36 @@ import {
   TouchableOpacity,
   Image,
   Animated,
-  ImageBackground
-} from 'react-native';
+  ImageBackground,
+} from 'react-native'
 
-import Articles from '../screens/Articles';
+import Articles from '../screens/Articles'
 // Galio components
-import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { Block, Text, Button as GaButton, theme } from 'galio-framework'
 
 // Now UI themed components
-import { Images, nowTheme, articles, tabs } from '../constants';
-import { Button, Select, Icon, Input, Header, Switch } from '../components';
+import { Images, nowTheme, articles, tabs } from '../constants'
+import { Button, Select, Icon, Input, Header, Switch } from '../components'
 
-import Img from '../components/Img';
-import { Card } from '../components';
+import Img from '../components/Img'
+import { Card } from '../components'
 
+const { width } = Dimensions.get('screen')
 
-const { width } = Dimensions.get('screen');
-
-const thumbMeasure = (width - 48 - 32) / 3;
+const thumbMeasure = (width - 48 - 32) / 3
 
 class Components extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       checkSelected: [],
       'switch-1': true,
       'switch-2': false,
-    };
+    }
   }
 
-
-
-  toggleSwitch = switchId => this.setState({ [switchId]: !this.state[switchId] });
+  toggleSwitch = (switchId) =>
+    this.setState({ [switchId]: !this.state[switchId] })
 
   renderButtons = () => {
     return (
@@ -56,7 +54,8 @@ class Components extends React.Component {
             </Button>
           </Block>
           <Block center>
-            <Button textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+            <Button
+              textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
               style={styles.button}
             >
               PRIMARY
@@ -71,7 +70,6 @@ class Components extends React.Component {
               INFO
             </Button>
           </Block>
-
 
           <Block center>
             <Button
@@ -102,7 +100,11 @@ class Components extends React.Component {
           </Block>
           <Block center>
             <Button
-              textStyle={{ fontFamily: 'montserrat-regular', color: nowTheme.COLORS.PRIMARY, fontSize: 12 }}
+              textStyle={{
+                fontFamily: 'montserrat-regular',
+                color: nowTheme.COLORS.PRIMARY,
+                fontSize: 12,
+              }}
               color="neutral"
               style={styles.button}
             >
@@ -110,8 +112,11 @@ class Components extends React.Component {
             </Button>
           </Block>
           <Block row space="between">
-            <Block flex left style={{marginTop: 8}}>
-              <Select defaultIndex={1} options={['01', '02', '03', '04', '05']} />
+            <Block flex left style={{ marginTop: 8 }}>
+              <Select
+                defaultIndex={1}
+                options={['01', '02', '03', '04', '05']}
+              />
             </Block>
             <Block flex>
               <Button
@@ -137,8 +142,8 @@ class Components extends React.Component {
           </Block>
         </Block>
       </Block>
-    );
-  };
+    )
+  }
 
   renderText = () => {
     return (
@@ -151,7 +156,7 @@ class Components extends React.Component {
             h1
             style={{
               fontFamily: 'montserrat-regular',
-              marginBottom: theme.SIZES.BASE / 2
+              marginBottom: theme.SIZES.BASE / 2,
             }}
             color={nowTheme.COLORS.HEADER}
           >
@@ -161,7 +166,7 @@ class Components extends React.Component {
             h2
             style={{
               fontFamily: 'montserrat-regular',
-              marginBottom: theme.SIZES.BASE / 2
+              marginBottom: theme.SIZES.BASE / 2,
             }}
             color={nowTheme.COLORS.HEADER}
           >
@@ -171,7 +176,7 @@ class Components extends React.Component {
             h3
             style={{
               fontFamily: 'montserrat-regular',
-              marginBottom: theme.SIZES.BASE / 2
+              marginBottom: theme.SIZES.BASE / 2,
             }}
             color={nowTheme.COLORS.HEADER}
           >
@@ -181,7 +186,7 @@ class Components extends React.Component {
             h4
             style={{
               fontFamily: 'montserrat-regular',
-              marginBottom: theme.SIZES.BASE / 2
+              marginBottom: theme.SIZES.BASE / 2,
             }}
             color={nowTheme.COLORS.HEADER}
           >
@@ -191,7 +196,7 @@ class Components extends React.Component {
             h5
             style={{
               fontFamily: 'montserrat-regular',
-              marginBottom: theme.SIZES.BASE / 2
+              marginBottom: theme.SIZES.BASE / 2,
             }}
             color={nowTheme.COLORS.HEADER}
           >
@@ -201,7 +206,7 @@ class Components extends React.Component {
             p
             style={{
               fontFamily: 'montserrat-regular',
-              marginBottom: theme.SIZES.BASE / 2
+              marginBottom: theme.SIZES.BASE / 2,
             }}
             color={nowTheme.COLORS.HEADER}
           >
@@ -212,8 +217,8 @@ class Components extends React.Component {
           </Text>
         </Block>
       </Block>
-    );
-  };
+    )
+  }
   renderImages = () => {
     return (
       <Block flex style={styles.group}>
@@ -229,10 +234,8 @@ class Components extends React.Component {
           </Block>
         </Block>
       </Block>
-    );
-  };
-
-
+    )
+  }
 
   renderInputs = () => {
     return (
@@ -245,8 +248,8 @@ class Components extends React.Component {
             primary={this.state.primaryFocus}
             right
             placeholder="Regular"
-            onFocus = {() => this.setState({primaryFocus: true})}
-            onBlur = {() => this.setState({primaryFocus: false})}
+            onFocus={() => this.setState({ primaryFocus: true })}
+            onBlur={() => this.setState({ primaryFocus: false })}
             iconContent={<Block />}
             shadowless
           />
@@ -257,10 +260,15 @@ class Components extends React.Component {
             right
             shadowless
             placeholder="Success"
-            onFocus = {() => this.setState({successFocus: true})}
-            onBlur = {() => this.setState({successFocus: false})}
+            onFocus={() => this.setState({ successFocus: true })}
+            onBlur={() => this.setState({ successFocus: false })}
             iconContent={
-              <Icon size={11} color={nowTheme.COLORS.SUCCESS} name="check-22x" family="NowExtra" />
+              <Icon
+                size={11}
+                color={nowTheme.COLORS.SUCCESS}
+                name="check-22x"
+                family="NowExtra"
+              />
             }
           />
         </Block>
@@ -270,8 +278,8 @@ class Components extends React.Component {
             right
             shadowless
             placeholder="Error Input"
-            onFocus = {() => this.setState({errorFocus: true})}
-            onBlur = {() => this.setState({errorFocus: false})}
+            onFocus={() => this.setState({ errorFocus: true })}
+            onBlur={() => this.setState({ errorFocus: false })}
             iconContent={
               <Icon
                 size={11}
@@ -304,13 +312,18 @@ class Components extends React.Component {
             placeholder="Icon Right"
             shadowless
             iconContent={
-              <Icon size={11} color={nowTheme.COLORS.ICON} name="single" family="NowExtra" />
+              <Icon
+                size={11}
+                color={nowTheme.COLORS.ICON}
+                name="single"
+                family="NowExtra"
+              />
             }
           />
         </Block>
       </Block>
-    );
-  };
+    )
+  }
 
   renderSwitches = () => {
     return (
@@ -319,7 +332,12 @@ class Components extends React.Component {
           Switches
         </Text>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block row middle space="between" style={{ marginBottom: theme.SIZES.BASE }}>
+          <Block
+            row
+            middle
+            space="between"
+            style={{ marginBottom: theme.SIZES.BASE }}
+          >
             <Text
               style={{ fontFamily: 'montserrat-regular' }}
               size={14}
@@ -347,11 +365,11 @@ class Components extends React.Component {
           </Block>
         </Block>
       </Block>
-    );
-  };
+    )
+  }
 
   renderTableCell = () => {
-    const { navigation } = this.props;
+    const { navigation } = this.props
     return (
       <Block flex style={styles.group}>
         <Text size={16} style={styles.title}>
@@ -368,14 +386,18 @@ class Components extends React.Component {
                 >
                   Manage Options
                 </Text>
-                <Icon name="chevron-right" family="entypo" style={{ paddingRight: 5 }} />
+                <Icon
+                  name="chevron-right"
+                  family="entypo"
+                  style={{ paddingRight: 5 }}
+                />
               </Block>
             </TouchableOpacity>
           </Block>
         </Block>
       </Block>
-    );
-  };
+    )
+  }
 
   renderNavigation = () => {
     return (
@@ -401,7 +423,11 @@ class Components extends React.Component {
           </Block>
 
           <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header tabs={tabs.beauty} title="Title" navigation={this.props.navigation} />
+            <Header
+              tabs={tabs.beauty}
+              title="Title"
+              navigation={this.props.navigation}
+            />
           </Block>
 
           <Block style={{ marginBottom: theme.SIZES.BASE }}>
@@ -418,12 +444,10 @@ class Components extends React.Component {
               navigation={this.props.navigation}
             />
           </Block>
-
         </Block>
       </Block>
-    );
-  };
-
+    )
+  }
 
   renderSocial = () => {
     return (
@@ -475,27 +499,25 @@ class Components extends React.Component {
           </Block>
         </Block>
       </Block>
-    );
-  };
-
+    )
+  }
 
   renderCards = () => {
-    scrollX = new Animated.Value(0);
+    scrollX = new Animated.Value(0)
     cards = [articles[5], articles[6]]
     return (
       <Block flex style={styles.group}>
-
         <Articles />
         <Block flex card center shadow style={styles.category}>
           <ImageBackground
             source={Images.Products['path']}
             style={[
               styles.imageBlock,
-              { width: width - theme.SIZES.BASE * 2, height: 252 }
+              { width: width - theme.SIZES.BASE * 2, height: 252 },
             ]}
             imageStyle={{
               width: width - theme.SIZES.BASE * 2,
-              height: 252
+              height: 252,
             }}
           >
             <Block style={styles.categoryTitle}>
@@ -512,42 +534,68 @@ class Components extends React.Component {
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           contentContainerStyle={{
-            width: width * 2
-          }}>
+            width: width * 2,
+          }}
+        >
           {cards.map((item, index) => {
-            return <Card key={index} item={item} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'contain' } }/>
+            return (
+              <Card
+                key={index}
+                item={item}
+                full
+                titleStyle={styles.productTitle}
+                imageStyle={{
+                  height: 300,
+                  width: '100%',
+                  resizeMode: 'contain',
+                }}
+              />
+            )
           })}
         </ScrollView>
-
       </Block>
-
-    );
-  };
+    )
+  }
   renderAlbums = () => {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
     return (
-      <Block flex style={[styles.group, { paddingBottom: theme.SIZES.BASE * 5 }]}>
+      <Block
+        flex
+        style={[styles.group, { paddingBottom: theme.SIZES.BASE * 5 }]}
+      >
         <Block style={{ marginHorizontal: theme.SIZES.BASE * 2 }}>
           <Block row space="between">
             <Text bold size={16} color="#333" style={{ marginTop: 3 }}>
               Album
             </Text>
-            <Button small color="transparent" textStyle={{ color: nowTheme.COLORS.PRIMARY, fontSize: 14 }}>
+            <Button
+              small
+              color="transparent"
+              textStyle={{ color: nowTheme.COLORS.PRIMARY, fontSize: 14 }}
+            >
               View All
             </Button>
           </Block>
-          <Block row space="between" style={{ marginTop: theme.SIZES.BASE, flexWrap: 'wrap' }}>
+          <Block
+            row
+            space="between"
+            style={{ marginTop: theme.SIZES.BASE, flexWrap: 'wrap' }}
+          >
             {Images.Viewed.map((img, index) => (
               <Block key={`viewed-${img}`} style={styles.shadow}>
-                <Image resizeMode="cover" source={img} style={styles.albumThumb} />
+                <Image
+                  resizeMode="cover"
+                  source={img}
+                  style={styles.albumThumb}
+                />
               </Block>
             ))}
           </Block>
         </Block>
       </Block>
-    );
-  };
+    )
+  }
 
   render() {
     return (
@@ -567,7 +615,7 @@ class Components extends React.Component {
           {this.renderAlbums()}
         </ScrollView>
       </Block>
-    );
+    )
   }
 }
 
@@ -577,23 +625,23 @@ const styles = StyleSheet.create({
     paddingBottom: theme.SIZES.BASE,
     paddingHorizontal: theme.SIZES.BASE * 2,
     marginTop: 44,
-    color: nowTheme.COLORS.HEADER
+    color: nowTheme.COLORS.HEADER,
   },
   social: {
     width: theme.SIZES.BASE * 3.5,
     height: theme.SIZES.BASE * 3.5,
     borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   group: {
-    paddingTop: theme.SIZES.BASE * 2
+    paddingTop: theme.SIZES.BASE * 2,
   },
   shadow: {
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.2,
-    elevation: 2
+    elevation: 2,
   },
   button: {
     marginBottom: theme.SIZES.BASE,
@@ -603,12 +651,12 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 34,
     paddingHorizontal: 10,
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   category: {
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE / 2,
-    borderWidth: 0
+    borderWidth: 0,
   },
   categoryTitle: {
     height: '100%',
@@ -620,21 +668,21 @@ const styles = StyleSheet.create({
   imageBlock: {
     overflow: 'hidden',
     borderRadius: 4,
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   albumThumb: {
     borderRadius: 4,
     marginVertical: 4,
     alignSelf: 'center',
     width: thumbMeasure,
-    height: thumbMeasure
+    height: thumbMeasure,
   },
   productTitle: {
     color: nowTheme.COLORS.PRIMARY,
     textAlign: 'center',
     fontFamily: 'montserrat-bold',
-    fontSize: 18
-  }
-});
+    fontSize: 18,
+  },
+})
 
-export default Components;
+export default Components

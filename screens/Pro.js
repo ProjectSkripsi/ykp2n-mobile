@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react'
 import {
   ImageBackground,
   Image,
   StyleSheet,
   StatusBar,
-  Dimensions
-} from "react-native";
-import { Block, Button, Text, theme } from "galio-framework";
+  Dimensions,
+} from 'react-native'
+import { Block, Button, Text, theme } from 'galio-framework'
 
-const { height, width } = Dimensions.get("screen");
+const { height, width } = Dimensions.get('screen')
 
-import nowTheme from "../constants/Theme";
-import Images from "../constants/Images";
+import nowTheme from '../constants/Theme'
+import Images from '../constants/Images'
 
 class Pro extends React.Component {
   render() {
-    const { navigation } = this.props;
+    const { navigation } = this.props
 
     return (
       <Block flex style={styles.container}>
@@ -28,8 +28,7 @@ class Pro extends React.Component {
         </Block>
 
         <Block flex space="between" style={styles.padded}>
-
-          <Block middle row style={{ marginTop: -50, marginBottom: 30}}>
+          <Block middle row style={{ marginTop: -50, marginBottom: 30 }}>
             <Text
               color="white"
               size={16}
@@ -42,7 +41,7 @@ class Pro extends React.Component {
               style={{
                 height: 29,
                 width: 129,
-                marginLeft: theme.SIZES.BASE
+                marginLeft: theme.SIZES.BASE,
               }}
             />
           </Block>
@@ -60,8 +59,8 @@ class Pro extends React.Component {
                 </Text>
                 <Block middle style={styles.pro}>
                   <Text size={14} color="white" style={styles.font}>
-                  PRO
-                </Text>
+                    PRO
+                  </Text>
                 </Block>
               </Block>
             </Block>
@@ -69,18 +68,23 @@ class Pro extends React.Component {
             <Block row middle style={{ marginTop: theme.SIZES.BASE * 4 }}>
               <Image
                 source={Images.iOSLogo}
-                style={{ height: 38, width: 82, marginRight: theme.SIZES.BASE * 1.5 }} />
+                style={{
+                  height: 38,
+                  width: 82,
+                  marginRight: theme.SIZES.BASE * 1.5,
+                }}
+              />
               <Image
                 source={Images.androidLogo}
-                style={{ height: 38, width: 140 }} />
+                style={{ height: 38, width: 140 }}
+              />
             </Block>
 
             <Block center>
               <Button
                 style={styles.button}
                 color={nowTheme.COLORS.PRIMARY}
-                onPress={() => navigation.navigate("Home")}
-
+                onPress={() => navigation.navigate('Home')}
               >
                 BUY NOW
               </Button>
@@ -88,32 +92,32 @@ class Pro extends React.Component {
           </Block>
         </Block>
       </Block>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK
+    backgroundColor: theme.COLORS.BLACK,
   },
   padded: {
     top: 270,
     paddingHorizontal: theme.SIZES.BASE * 2,
     position: 'absolute',
     bottom: theme.SIZES.BASE,
-    zIndex: 2
+    zIndex: 2,
   },
   button: {
     width: width - theme.SIZES.BASE * 4,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
   },
   title: {
-    marginTop: "-5%"
+    marginTop: '-5%',
   },
   subTitle: {
-    marginTop: 20
+    marginTop: 20,
   },
   pro: {
     backgroundColor: nowTheme.COLORS.BLACK,
@@ -121,11 +125,11 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     borderRadius: 4,
     height: 22,
-    marginTop: 0
+    marginTop: 0,
   },
   font: {
-    fontFamily: 'montserrat-bold'
-  }
-});
+    fontFamily: 'montserrat-bold',
+  },
+})
 
-export default Pro;
+export default Pro

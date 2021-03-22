@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   StyleSheet,
   ImageBackground,
@@ -7,25 +7,25 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
-} from "react-native";
+} from 'react-native'
 import {
   Block,
   Checkbox,
   Text,
   Button as GaButton,
   theme,
-} from "galio-framework";
+} from 'galio-framework'
 
-import { Button, Icon, Input } from "../components";
-import { Images, nowTheme } from "../constants";
+import { Button, Icon, Input } from '../components'
+import { Images, nowTheme } from '../constants'
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get('screen')
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     {children}
   </TouchableWithoutFeedback>
-);
+)
 
 class Register extends React.Component {
   render() {
@@ -44,8 +44,8 @@ class Register extends React.Component {
                     <Block flex={0.5} middle>
                       <Text
                         style={{
-                          fontFamily: "montserrat-regular",
-                          textAlign: "center",
+                          fontFamily: 'montserrat-regular',
+                          textAlign: 'center',
                         }}
                         color="#333"
                         size={24}
@@ -62,7 +62,7 @@ class Register extends React.Component {
                       style={{ marginBottom: 18 }}
                     >
                       <Image
-                        source={require("../assets/ypk2n.jpeg")}
+                        source={require('../assets/ypk2n.jpeg')}
                         style={{
                           width: 100,
                         }}
@@ -73,8 +73,8 @@ class Register extends React.Component {
                   <Block flex={0.1} middle>
                     <Text
                       style={{
-                        fontFamily: "montserrat-regular",
-                        textAlign: "center",
+                        fontFamily: 'montserrat-regular',
+                        textAlign: 'center',
                       }}
                       muted
                       size={16}
@@ -149,12 +149,12 @@ class Register extends React.Component {
                               checkboxStyle={{
                                 borderWidth: 1,
                                 borderRadius: 2,
-                                borderColor: "#E3E3E3",
+                                borderColor: '#E3E3E3',
                               }}
                               color={nowTheme.COLORS.PRIMARY}
                               labelStyle={{
                                 color: nowTheme.COLORS.HEADER,
-                                fontFamily: "montserrat-regular",
+                                fontFamily: 'montserrat-regular',
                               }}
                               label="I agree to the terms and conditions."
                             />
@@ -167,7 +167,7 @@ class Register extends React.Component {
                             style={styles.createButton}
                           >
                             <Text
-                              style={{ fontFamily: "montserrat-bold" }}
+                              style={{ fontFamily: 'montserrat-bold' }}
                               size={14}
                               color={nowTheme.COLORS.WHITE}
                             >
@@ -184,7 +184,7 @@ class Register extends React.Component {
           </ImageBackground>
         </Block>
       </DismissKeyboard>
-    );
+    )
   }
 }
 
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   socialConnect: {
     backgroundColor: nowTheme.COLORS.WHITE,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   socialButtons: {
     width: 120,
     height: 40,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     shadowColor: nowTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   },
   socialTextButtons: {
     color: nowTheme.COLORS.PRIMARY,
-    fontWeight: "800",
+    fontWeight: '800',
     fontSize: 14,
   },
   inputIcons: {
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
   inputs: {
     borderWidth: 1,
-    borderColor: "#E3E3E3",
+    borderColor: '#E3E3E3',
     borderRadius: 21.5,
   },
   passwordCheck: {
@@ -261,9 +261,9 @@ const styles = StyleSheet.create({
     width: theme.SIZES.BASE * 3.5,
     height: theme.SIZES.BASE * 3.5,
     borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginHorizontal: 10,
   },
-});
+})
 
-export default Register;
+export default Register

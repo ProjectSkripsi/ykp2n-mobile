@@ -1,16 +1,16 @@
-import React from 'react';
-import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
-import { Block, theme } from 'galio-framework';
+import React from 'react'
+import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native'
+import { Block, theme } from 'galio-framework'
 
-const { width } = Dimensions.get('screen');
-import nowTheme from '../constants/Theme';
+const { width } = Dimensions.get('screen')
+import nowTheme from '../constants/Theme'
 
 const defaultMenu = [
-  { id: 'music', title: 'Music', },
-  { id: 'beauty', title: 'Beauty', },
-  { id: 'fashion', title: 'Fashion', },
-  { id: 'motocycles', title: 'Motocycles', },
-];
+  { id: 'music', title: 'Music' },
+  { id: 'beauty', title: 'Beauty' },
+  { id: 'fashion', title: 'Fashion' },
+  { id: 'motocycles', title: 'Motocycles' },
+]
 
 export default class Tabs extends React.Component {
   static defaultProps = {
@@ -23,14 +23,14 @@ export default class Tabs extends React.Component {
   }
 
   componentDidMount() {
-    const { initialIndex } = this.props;
-    initialIndex && this.selectMenu(initialIndex);
+    const { initialIndex } = this.props
+    initialIndex && this.selectMenu(initialIndex)
   }
 
-  animatedValue = new Animated.Value(1);
+  animatedValue = new Animated.Value(1)
 
   animate() {
-    this.animatedValue.setValue(0);
+    this.animatedValue.setValue(0)
 
     Animated.timing(this.animatedValue, {
       toValue: 1,
@@ -39,41 +39,44 @@ export default class Tabs extends React.Component {
     }).start()
   }
 
-  menuRef = React.createRef();
+  menuRef = React.createRef()
 
   onScrollToIndexFailed = () => {
     this.menuRef.current.scrollToIndex({
       index: 0,
-      viewPosition: 0.5
-    });
+      viewPosition: 0.5,
+    })
   }
 
   selectMenu = (id) => {
-    this.setState({ active: id });
+    this.setState({ active: id })
 
     this.menuRef.current.scrollToIndex({
-      index: this.props.data.findIndex(item => item.id === id),
-      viewPosition: 0.5
-    });
+      index: this.props.data.findIndex((item) => item.id === id),
+      viewPosition: 0.5,
+    })
 
-    this.animate();
-    this.props.onChange && this.props.onChange(id);
+    this.animate()
+    this.props.onChange && this.props.onChange(id)
   }
 
   renderItem = (item) => {
-    const isActive = this.state.active === item.id;
+    const isActive = this.state.active === item.id
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [nowTheme.COLORS.TEXT, isActive ? nowTheme.COLORS.WHITE : nowTheme.COLORS.SECONDARY],
+      outputRange: [
+        nowTheme.COLORS.TEXT,
+        isActive ? nowTheme.COLORS.WHITE : nowTheme.COLORS.SECONDARY,
+      ],
       extrapolate: 'clamp',
-    });
+    })
 
     const containerStyles = [
       styles.titleContainer,
       !isActive && { backgroundColor: nowTheme.COLORS.TABS },
-      isActive && styles.containerShadow
-    ];
+      isActive && styles.containerShadow,
+    ]
 
     return (
       <Block style={containerStyles}>
@@ -83,7 +86,8 @@ export default class Tabs extends React.Component {
             { color: textColor },
             { fontFamily: 'montserrat-regular' },
           ]}
-          onPress={() => this.selectMenu(item.id)}>
+          onPress={() => this.selectMenu(item.id)}
+        >
           {item.title}
         </Animated.Text>
       </Block>
@@ -91,7 +95,7 @@ export default class Tabs extends React.Component {
   }
 
   renderMenu = () => {
-    const { data, ...props } = this.props;
+    const { data, ...props } = this.props
 
     return (
       <FlatList
@@ -110,11 +114,7 @@ export default class Tabs extends React.Component {
   }
 
   render() {
-    return (
-      <Block style={styles.container}>
-        {this.renderMenu()}
-      </Block>
-    )
+    return <Block style={styles.container}>{this.renderMenu()}</Block>
   }
 }
 
@@ -156,6 +156,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingVertical: 8,
     paddingHorizontal: 12,
-    color: nowTheme.COLORS.MUTED
+    color: nowTheme.COLORS.MUTED,
   },
-});
+})
