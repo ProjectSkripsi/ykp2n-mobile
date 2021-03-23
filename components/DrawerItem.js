@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { Block, Text, theme } from 'galio-framework'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import Icon from './Icon'
 import nowTheme from '../constants/Theme'
@@ -104,6 +105,14 @@ class DrawerItem extends React.Component {
     }
   }
 
+  onLogout = (title) => {
+    const { navigation } = this.props
+
+    navigation.navigate('Onboarding')
+    AsyncStorage.removeItem('user')
+    AsyncStorage.removeItem('token')
+  }
+
   render() {
     const { focused, title, navigation } = this.props
 
@@ -115,12 +124,16 @@ class DrawerItem extends React.Component {
     return (
       <TouchableOpacity
         style={{ height: 60 }}
-        onPress={() =>
-          title == 'GETTING STARTED'
-            ? Linking.openURL(
-                'https://demos.creative-tim.com/now-ui-pro-react-native/docs/',
-              ).catch((err) => console.error('An error occurred', err))
-            : navigation.navigate(title == 'LOGOUT' ? 'Onboarding' : title)
+        onPress={
+          () =>
+            title == 'GETTING STARTED'
+              ? Linking.openURL(
+                  'https://demos.creative-tim.com/now-ui-pro-react-native/docs/',
+                ).catch((err) => console.error('An error occurred', err))
+              : title == 'LOGOUT'
+              ? this.onLogout(title)
+              : navigation.navigate(title)
+          // navigation.navigate(title == 'LOGOUT' ? 'Onboarding' : title)
         }
       >
         <Block flex row style={containerStyles}>

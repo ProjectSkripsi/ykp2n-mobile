@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Block } from 'galio-framework'
 import { Easing, Animated, Dimensions } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -18,6 +18,7 @@ import CustomDrawerContent from './Menu'
 // header for screens
 import { Header, Icon } from '../components'
 import { nowTheme, tabs } from '../constants'
+import { getItem } from '../constants/utils'
 
 const { width } = Dimensions.get('screen')
 
@@ -206,7 +207,16 @@ function RootStack(props) {
 }
 
 export default function OnboardingStack(props) {
-  const isLogin = false
+  const [isLogin, setIsLogin] = useState(false)
+  useEffect(() => {
+    test()
+  }, [])
+
+  const test = async () => {
+    const getItems = await getItem('user')
+    setIsLogin(getItems !== null)
+  }
+
   if (isLogin) {
     return (
       <Stack.Navigator mode="card" headerMode="none">

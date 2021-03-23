@@ -3,21 +3,17 @@ import {
   StyleSheet,
   ImageBackground,
   Dimensions,
-  StatusBar,
   TouchableWithoutFeedback,
   Keyboard,
   Image,
 } from 'react-native'
-import {
-  Block,
-  Checkbox,
-  Text,
-  Button as GaButton,
-  theme,
-} from 'galio-framework'
+import { Block, Text, Button as GaButton, theme } from 'galio-framework'
+import { connect } from 'react-redux'
 
 import { Button, Icon, Input } from '../components'
 import { Images, nowTheme } from '../constants'
+import { getItem } from '../constants/utils'
+import { loginRequest } from '../store/auth/auth-action'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -37,6 +33,7 @@ class Register extends React.Component {
     },
     isValid: false,
     isLoading: false,
+    errorLogin: false,
   }
 
   onChange = (value, name) => {
@@ -73,13 +70,42 @@ class Register extends React.Component {
     this.setState({ errors, isValid: isValidForm })
   }
   doLogin = () => {
-    const { navigation } = this.props
-    navigation.navigate('App')
+    const { navigation, dispatch } = this.props
+    const { email, password } = this.state
+
+    dispatch(
+      loginRequest(email, password, (callBack) => {
+        const { status } = callBack
+        if (status === 200) {
+          // goto success login
+          this.setState({
+            errorLogin: false,
+            email: '',
+            password: '',
+          })
+          navigation.navigate('App')
+        } else {
+          this.setState(
+            {
+              errorLogin: true,
+            },
+            () => {
+              setTimeout(() => {
+                this.setState({
+                  errorLogin: false,
+                })
+              }, 3000)
+            },
+          )
+        }
+      }),
+    )
   }
 
   render() {
     const { navigation } = this.props
-    const { isValid, isLoading } = this.state
+    const { isValid, isLoading, errorLogin, email, password } = this.state
+
     return (
       <DismissKeyboard>
         <Block flex middle>
@@ -127,10 +153,14 @@ class Register extends React.Component {
                           <Block width={width * 0.8}>
                             <Input
                               placeholder="Email"
+                              keyboardType="email-address"
+                              autoCompleteType="email"
                               style={styles.inputs}
+                              autoCapitalize="none"
                               onChangeText={(text) =>
                                 this.onChange(text, 'email')
                               }
+                              value={email}
                               iconContent={
                                 <Icon
                                   size={16}
@@ -146,6 +176,10 @@ class Register extends React.Component {
                             <Input
                               placeholder="Password"
                               style={styles.inputs}
+                              autoCompleteType="password"
+                              secureTextEntry={true}
+                              autoCapitalize="none"
+                              value={password}
                               onChangeText={(text) =>
                                 this.onChange(text, 'password')
                               }
@@ -160,17 +194,19 @@ class Register extends React.Component {
                               }
                             />
                           </Block>
-                          <Text
-                            style={{
-                              fontFamily: 'montserrat-regular',
-                              textAlign: 'center',
-                              color: 'red',
-                            }}
-                            muted
-                            size={14}
-                          >
-                            Password salah!
-                          </Text>
+                          {errorLogin && (
+                            <Text
+                              style={{
+                                fontFamily: 'montserrat-regular',
+                                textAlign: 'center',
+                                color: 'red',
+                              }}
+                              muted
+                              size={14}
+                            >
+                              Email/Password salah!
+                            </Text>
+                          )}
                         </Block>
                         <Block center>
                           <Button
@@ -284,4 +320,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Register
+export default connect((state) => state)(Register)
