@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Block } from 'galio-framework'
+import { connect } from 'react-redux'
 import { Easing, Animated, Dimensions } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -14,6 +15,7 @@ import Articles from '../screens/Articles'
 import Onboarding from '../screens/Onboarding'
 import SettingsScreen from '../screens/Settings'
 // drawer
+import Response from '../screens/Response'
 import CustomDrawerContent from './Menu'
 // header for screens
 import { Header, Icon } from '../components'
@@ -145,6 +147,11 @@ function HomeStack(props) {
           cardStyle: { backgroundColor: '#FFFFFF' },
         }}
       />
+      <Stack.Screen
+        name="Response"
+        component={Response}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   )
 }
@@ -190,8 +197,6 @@ function AppStack(props) {
 }
 
 function RootStack(props) {
-  const isLogin = false
-
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
@@ -206,15 +211,23 @@ function RootStack(props) {
   )
 }
 
-export default function OnboardingStack(props) {
+function OnboardingStack(props) {
+  const isMounted = useRef(null)
   const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
+    isMounted.current = true
     test()
+    return () => {
+      isMounted.current = false
+      test()
+    }
   }, [])
 
   const test = async () => {
     const getItems = await getItem('user')
-    setIsLogin(getItems !== null)
+    if (isMounted.current) {
+      setIsLogin(getItems !== null)
+    }
   }
 
   if (isLogin) {
@@ -234,3 +247,5 @@ export default function OnboardingStack(props) {
     return <RootStack />
   }
 }
+
+export default OnboardingStack

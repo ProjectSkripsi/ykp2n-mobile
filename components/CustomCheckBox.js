@@ -7,7 +7,7 @@ import { Text, Checkbox } from 'galio-framework'
 export default class CustomCheckBox extends React.Component {
   render() {
     const { onChange, item } = this.props
-    console.log(item)
+
     return (
       <View style={{ marginBottom: 10 }}>
         <Checkbox

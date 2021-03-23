@@ -1,9 +1,17 @@
 import React from 'react'
-import { StyleSheet, Dimensions, ScrollView, TextInput } from 'react-native'
+import {
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native'
 import { Block, theme, Text, Input } from 'galio-framework'
-import { nowTheme } from '../constants/'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import { connect } from 'react-redux'
 import { Card, Button } from '../components'
-import articles from '../constants/articles'
+import moment from 'moment'
+import { getSymptomsRequest } from '../store/gejala/action'
 const { width } = Dimensions.get('screen')
 
 class Home extends React.Component {
@@ -12,7 +20,7 @@ class Home extends React.Component {
     nik: '',
     name: '',
     placeBirth: '',
-    dateBirth: '',
+    dateBirth: new Date(),
     contact: '',
     address: '',
     errors: {
@@ -24,6 +32,13 @@ class Home extends React.Component {
       address: null,
     },
     isValid: false,
+    show: false,
+    defaultValue: new Date(),
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(getSymptomsRequest((callBack) => {}))
   }
 
   isValidForm = (type) => {
@@ -53,6 +68,7 @@ class Home extends React.Component {
       errors.placeBirth = placeBirth.length < 2
     }
     if (type === 'dateBirth') {
+      console.log(dateBirth)
       errors.dateBirth = dateBirth.length < 4
     }
 
@@ -83,6 +99,7 @@ class Home extends React.Component {
       dateBirth,
     } = this.state
     const { navigation } = this.props
+    const date = dateBirth.toISOString()
     this.setState(
       {
         isLoading: true,
@@ -99,7 +116,7 @@ class Home extends React.Component {
           contact,
           address,
           placeBirth,
-          dateBirth,
+          dateBirth: date,
         })
       },
     )
@@ -116,6 +133,19 @@ class Home extends React.Component {
     )
   }
 
+  changeDate = (e, val) => {
+    const { type } = e
+    this.setState(
+      {
+        dateBirth: type === 'set' ? val : new Date(),
+        show: false,
+      },
+      () => {
+        this.isValidForm('dateBirth')
+      },
+    )
+  }
+
   render() {
     const {
       nik,
@@ -127,6 +157,8 @@ class Home extends React.Component {
       address,
       isLoading,
       isValid,
+      show,
+      defaultValue,
     } = this.state
 
     return (
@@ -135,6 +167,23 @@ class Home extends React.Component {
         contentContainerStyle={styles.articles}
       >
         <Block flex>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={dateBirth || new Date()}
+              mode="date"
+              is24Hour={true}
+              display="default"
+              onChange={this.changeDate}
+              locale="id-ID"
+              onCancel={() => {
+                this.setState({
+                  show: false,
+                  dateBirth: defaultValue,
+                })
+              }}
+            />
+          )}
           <Input
             placeholder="No. KTP"
             color="black"
@@ -163,15 +212,21 @@ class Home extends React.Component {
             onChangeText={(text) => this.onChange(text, 'placeBirth')}
             style={{ borderColor: errors.placeBirth ? 'red' : '#9FA5AA' }}
           />
+
           <Input
+            disabled
             placeholder="21-04-2000"
             color="black"
             label="Tanggal Lahir"
+            onFocus={() => {
+              this.setState({ show: true })
+            }}
             placeholderTextColor="#D8D8D8"
-            value={dateBirth}
-            onChangeText={(text) => this.onChange(text, 'dateBirth')}
+            showSoftInputOnFocus={false}
+            value={moment(dateBirth).format('LL')}
             style={{ borderColor: errors.dateBirth ? 'red' : '#9FA5AA' }}
           />
+
           <Input
             placeholder="08123456789"
             color="black"
@@ -257,4 +312,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Home
+export default connect((state) => state)(Home)

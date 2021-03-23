@@ -1,49 +1,95 @@
 import React from 'react'
 import { StyleSheet, Dimensions, ScrollView, View } from 'react-native'
 import { Block, theme, Text, Input } from 'galio-framework'
-
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { baseUrl, getItem } from '../constants/utils'
 import { Button, CustomCheckBox } from '../components'
 
 const { width } = Dimensions.get('screen')
 
 class Symptoms extends React.Component {
   state = {
-    gejala: [],
+    symptomsId: [],
+    isLoading: false,
   }
   onChange = (value, e) => {
-    const { gejala } = this.state
-    const temp = gejala
+    const { symptomsId } = this.state
+    const temp = symptomsId
     if (value) {
       temp.push(e)
       this.setState({
-        gejala: temp,
+        symptomsId: temp,
       })
     } else {
       this.setState({
-        gejala: temp.filter((item) => item !== e),
+        symptomsId: temp.filter((item) => item !== e),
       })
     }
   }
-  render() {
-    const { nik, address, name, contact } = this.props.route.params
-    console.log(nik, address, name, contact)
-    const { gejala } = this.state
-    const { onChange } = this
 
+  onSubmit = async () => {
+    const { navigation } = this.props
+    const {
+      nik,
+      address,
+      name,
+      contact,
+      placeBirth,
+      dateBirth,
+    } = this.props.route.params
+
+    const { symptomsId } = this.state
+    const token = await getItem('token')
+    try {
+      const response = await axios.post(
+        `${baseUrl}/patient`,
+        {
+          nik,
+          address,
+          name,
+          contact,
+          placeBirth,
+          dateBirth,
+          symptomsId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      if (response.status === 201) {
+        navigation.navigate('Response', {
+          data: response.data,
+        })
+      }
+    } catch (error) {
+      const err = error.response ? error.response : error
+      return Promise.reject(err)
+    }
+  }
+
+  render() {
+    const { onChange } = this
+    const { symptoms } = this.props
+    const { symptomsId, isLoading } = this.state
+    const isValid = symptomsId.length > 0
+    console.log('input', this.state)
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}
       >
         <Block flex>
-          <CustomCheckBox
-            onChange={onChange}
-            item={{ _id: 1, name: 'tes11t' }}
-          />
-          <CustomCheckBox
-            onChange={onChange}
-            item={{ _id: 12, name: 'te22st' }}
-          />
+          {symptoms &&
+            symptoms.map((item) => (
+              <CustomCheckBox
+                key={item._id}
+                onChange={onChange}
+                item={{ _id: item._id, name: item.name }}
+              />
+            ))}
 
           <Block
             row
@@ -54,16 +100,17 @@ class Symptoms extends React.Component {
             <Button
               shadowless
               style={styles.button}
-              // color={!isValid ? "#9FA5AA" : nowTheme.COLORS.PRIMARY}
+              color={!isValid ? 'default' : 'primary'}
               onPress={this.doNext}
-              // loading={isLoading}
-              // disabled={!isValid}
+              loading={isLoading}
+              disabled={!isValid}
+              onPress={this.onSubmit}
             >
               <Text
                 style={{ fontFamily: 'montserrat-bold', fontSize: 14 }}
                 color={theme.COLORS.WHITE}
               >
-                LANJUTKAN Symptoms
+                ANALISA
               </Text>
             </Button>
           </Block>
@@ -94,4 +141,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Symptoms
+const mapStateToProps = ({ symptoms }) => ({
+  symptoms: symptoms.data,
+})
+
+export default connect(mapStateToProps)(Symptoms)
