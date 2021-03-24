@@ -75,7 +75,7 @@ class Symptoms extends React.Component {
     const { symptoms } = this.props
     const { symptomsId, isLoading } = this.state
     const isValid = symptomsId.length > 0
-    console.log('input', this.state)
+
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}

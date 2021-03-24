@@ -68,7 +68,6 @@ class Home extends React.Component {
       errors.placeBirth = placeBirth.length < 2
     }
     if (type === 'dateBirth') {
-      console.log(dateBirth)
       errors.dateBirth = dateBirth.length < 4
     }
 
