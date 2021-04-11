@@ -26,9 +26,7 @@ const Response = ({ navigation, route }) => {
         </Text>
 
         <Text style={{ fontSize: 25, paddingTop: 30 }}>Hasil Analisa</Text>
-        <Text style={{ fontSize: 25, color: 'green', textAlign: 'center' }}>
-          {get(data, 'result', '')}
-        </Text>
+
         <Text style={{ fontSize: 25, color: 'green', textAlign: 'center' }}>
           {get(data, 'criteriaStatus', '')}
         </Text>
